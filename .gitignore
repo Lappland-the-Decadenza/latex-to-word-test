@@ -1,0 +1,65 @@
+.venv/
+__pycache__/
+*.pyc
+~$*.docx
+
+# Generated build artifacts -- regenerate from the .tex sources via
+# latex2word.py rather than tracking the binary output.
+*.docx
+
+# --- Private corpus and anything derived from it -----------------------------
+#
+# `tests/corpus_docx/` holds the user's own Word documents, used as the
+# fidelity baseline. They are personal and must never be committed. `*.docx`
+# above already covers the binaries, but round-tripping them produces plain
+# `.tex` that carries the same content in readable form, so the derived
+# artifacts are excluded explicitly rather than relying on the extension rule.
+tests/corpus_docx/
+# `tests/corpus/` is the LaTeX tolerance benchmark: AI-generated `.tex` about
+# the same private coursework as the `.docx` corpus, so it carries the same
+# content in readable form. Project-authored fixtures live in
+# `tests/fixtures/` and *are* committed -- that is the whole reason the two
+# directories are separate.
+tests/corpus/
+-v/
+*_reversed.tex
+
+# Editor and agent-tool configuration -- local to one machine.
+.vscode/
+.claude/
+scratchpad_fidelity/
+
+# --- Ad-hoc conversion output and screenshots at the repo root ---------------
+#
+# Round-tripping a private document produces a .tex carrying the same content
+# in readable plain text, and the file is not always named `*_reversed.tex`
+# (`improved_article.tex` was one). Tracked LaTeX sources live in
+# `tests/fixtures/`, so a .tex sitting at the root is always conversion output.
+# Screenshots pasted in for diagnosis show document content just as directly.
+/*.tex
+/*.jpeg
+/*.jpg
+/*.png
+/output/
+
+# Images extracted from a .docx land in a sibling `<stem>.figures/` directory.
+# They are lifted straight out of a private document, so they are exactly as
+# sensitive as the document itself -- excluded wherever they appear, not just
+# at the root.
+*.figures/
+*.objects/
+*.workspace/
+*.latexword/
+*.latexword-*/
+
+# Local pytest/agent scratch output; never part of a source change.
+/.pytest_cache/
+.pytest_tmp*/
+/.ai-edit-*.workspace/
+/.ai-gate-*.json
+/.word-audit/
+/.word-host-audit/
+/.debug-docx*/
+.ruff_cache/
+.codex/
+$root/

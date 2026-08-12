@@ -1,0 +1,113 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\title{Torture Test}
+\author{QA}
+\begin{document}
+\maketitle
+
+\section{Inline text features}
+Escapes: 100\% of \$5 \& more, file\_name, \#tag, \{braces\}.
+Dashes: a---b, range 1--10. Quotes: ``quoted'' text. Ellipsis \ldots
+Styles: \textbf{bold}, \textit{italic}, \emph{emph}, \texttt{mono}, \underline{under}.
+Nested: \textbf{bold with \textit{italic} inside}.
+% this comment must vanish
+Non-breaking~space and a reference \ref{eq:main} plus \cite{knuth}.
+
+\section{Display math variants}
+Bracket form:
+\[
+  E = mc^{2}
+\]
+
+Dollar form:
+$$
+\nabla \cdot \mathbf{E} = \frac{\rho}{\varepsilon_{0}}
+$$
+
+Aligned system:
+\begin{align*}
+  \dot{x} &= \sigma (y - x) \\
+  \dot{y} &= x (\rho - z) - y \\
+  \dot{z} &= x y - \beta z
+\end{align*}
+
+Gathered:
+\begin{gather*}
+  a^{2} + b^{2} = c^{2} \\
+  \sin^{2}{\theta} + \cos^{2}{\theta} = 1
+\end{gather*}
+
+\section{Structures}
+Nested fractions and radicals:
+\begin{equation}
+  \varphi = \frac{1 + \sqrt{5}}{2}, \qquad
+  x = \sqrt[3]{\frac{a + \sqrt{b}}{c - \sqrt[4]{d}}}
+\end{equation}
+
+Deep delimiters:
+\begin{equation}
+  f = \left[ \frac{\left( a + \left\{ b \right\} \right)}{\left| c \right|} \right]^{n}
+\end{equation}
+
+Binomials and stacked scripts:
+\begin{equation}
+  (x + y)^{n} = \sum_{k=0}^{n}{\binom{n}{k} x^{k} y^{n-k}}
+\end{equation}
+
+Matrices:
+\begin{equation}
+  A = \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix}, \quad
+  \det \begin{vmatrix} a & b \\ c & d \end{vmatrix} = ad - bc
+\end{equation}
+
+Over/under constructs:
+\begin{equation}
+  \overline{z_{1} z_{2}} = \overline{z_{1}} \cdot \overline{z_{2}}, \quad
+  \underbrace{a + \cdots + a}_{n \text{ times}} = na
+\end{equation}
+
+Evaluation bar and multi-integral:
+\begin{equation}
+  \left. F(x) \right|_{a}^{b} = \iiint_{V}{\nabla \cdot \mathbf{F} \, dV}
+\end{equation}
+
+Operators and relations:
+\begin{equation}
+  \operatorname{rank}(A) \leq \min{\{ m, n \}}, \qquad
+  a \equiv b \pmod{n}
+\end{equation}
+
+Limits both sides:
+\begin{equation}
+  \limsup_{n \to \infty}{x_{n}} \geq \liminf_{n \to \infty}{x_{n}}
+\end{equation}
+
+Primes and derivatives:
+\begin{equation}
+  f''(x) = \frac{d^{2} f}{d x^{2}}, \qquad
+  \frac{\partial^{2} u}{\partial t^{2}} = c^{2} \nabla^{2} u
+\end{equation}
+
+\section{Lists}
+\begin{itemize}
+  \item First item with inline math $\alpha + \beta$.
+  \item Second item.
+\end{itemize}
+
+\begin{enumerate}
+  \item Numbered one.
+  \item Numbered two with display math:
+  \begin{equation*}
+    \int_{0}^{1}{x^{2} dx} = \frac{1}{3}
+  \end{equation*}
+\end{enumerate}
+
+\section{Edge cases}
+Empty-ish math $x$ and a lone symbol $\emptyset$.
+Greek soup: $\Gamma, \Delta, \Theta, \Lambda, \Xi, \Pi, \Sigma, \Upsilon, \Phi, \Psi, \Omega$.
+Arrows: $\rightarrow \Rightarrow \leftrightarrow \mapsto \hookrightarrow$.
+Sets: $\mathbb{N} \subseteq \mathbb{Z} \subset \mathbb{Q} \subset \mathbb{R} \subset \mathbb{C}$.
+Logic: $\forall x \exists y : P(x) \wedge Q(y) \vee \neg R$.
+
+\end{document}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "LaTeXWord Word Editing"
+  short_description: "Edit Word documents through shadow LaTeX"
+  default_prompt: "Use $latexword-word-editing to edit the requested Word document through its managed shadow LaTeX workspace."

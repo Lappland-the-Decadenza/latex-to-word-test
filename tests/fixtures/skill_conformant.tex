@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{SKILL.md Conformant Sample}
+\author{Test Harness}
+
+\begin{document}
+
+\maketitle
+
+\section{Explicit grouping}
+Bare parentheses do not appear; every delimiter pair uses
+\verb|\left|/\verb|\right| as SKILL.md requires:
+\begin{equation}
+\left( x + y \right)^{2} = x^{2} + 2xy + y^{2}
+\end{equation}
+
+\section{Function operators with explicit braces}
+Standard operators are scoped with curly braces around their arguments,
+and a nested nest of them is used to stress token gluing:
+\begin{equation}
+\cosh{\ln{\tan{\frac{\varphi}{2}}}}
+\end{equation}
+
+Custom operator names use \operatorname{}:
+\begin{equation}
+\operatorname{rank}(A) = \operatorname{dim}\left( \operatorname{im}\left( A \right) \right)
+\end{equation}
+
+A limit with explicit braces around both subscript and argument:
+\begin{equation}
+\lim_{n \to \infty}{a_{n}} = L
+\end{equation}
+
+\section{Structural integrity}
+An \verb|align| block for multi-line derivations:
+\begin{align}
+f(x) &= \sin{\theta} + \cos{\theta} \\
+g(x) &= \left( f(x) \right)^{2}
+\end{align}
+
+\section{Symbols}
+Perpendicularity and multiplication-dot symbols, written as plain macros:
+\begin{equation}
+u \perp v \qquad a \bullet b
+\end{equation}
+
+\end{document}

@@ -1,0 +1,9 @@
+target-version = "py38"
+line-length = 100
+exclude = [".venv", "legacy", "output"]
+
+[lint]
+# The active tree deliberately contains re-export facades and split modules
+# that make broad unused-import/name checks noisy. Keep the repository lint
+# gate focused on invalid Python until those boundaries are refactored.
+select = ["E9"]

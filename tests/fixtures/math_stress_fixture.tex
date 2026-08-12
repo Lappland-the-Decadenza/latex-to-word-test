@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{Ultimate LaTeX Converter Stress Test}
+\author{Gemini Spark}
+\date{2026-08-04}
+
+\begin{document}
+
+\maketitle
+
+\section{Fixes Verification: Inline Multiplication and Cases Delimiting}
+Here is a $3 \times 3$ matrix $A \in \mathbb{R}^{3 \times 3}$ and inline vector $\vec{v} \in \mathbb{C}^{3}$. Note that $3 \times 3$ uses explicit $\times$ notation.
+
+The piecewise function with a single left curly brace and NO right closing parenthesis:
+\begin{equation}
+f(x, y) = \begin{cases} \frac{\sin{\left( x \cdot y \right)}}{x \cdot y}, & \text{if } x \cdot y \neq 0 \\ 1, & \text{if } x \cdot y = 0 \end{cases}
+\end{equation}
+
+\section{Operators Without Limits}
+Indefinite integrals, double integrals, indefinite summations, and infinite products without explicit limits:
+
+Indefinite single and double integrals:
+\begin{equation}
+\int{f(x) dx} + \iint{g(x, y) dx dy} = C
+\end{equation}
+
+Indefinite summation and infinite product without upper/lower limit blocks:
+\begin{equation}
+\sum{a_{n} \cdot x^{n}} = \prod{\left( 1 + b_{k} \right)}
+\end{equation}
+
+\section{Hyperbolic, Inverse, and Extremum Functions}
+Hyperbolic, inverse, and logarithmic function operators:
+\begin{equation}
+\sinh{x} + \cosh{x} = \exp{x}
+\end{equation}
+\begin{equation}
+\arctan{x} + \arcsin{y} = \arccos{z}
+\end{equation}
+
+Extremum operators with subscript domains:
+\begin{equation}
+S = \sup_{x \in \mathbb{R}}{\{ f(x) \}} + \min_{y \in [a, b]}{\{ g(y) \}} + \lim_{n \to \infty}{a_{n}}
+\end{equation}
+
+\section{Special Fonts, Vectors, and Diacritics}
+Blackboard bold ($\mathbb{R}, \mathbb{C}, \mathbb{Z}, \mathbb{N}$), Calligraphic ($\mathcal{L}, \mathcal{F}$), and Fraktur ($\mathfrak{g}$) sets:
+\begin{equation}
+\mathcal{L}\{ f(t) \} = \int_{0}^{\infty}{e^{-s \cdot t} \cdot f(t) dt}, \quad \text{where } s \in \mathbb{C}
+\end{equation}
+
+Bold vectors ($\mathbf{v}, \bm{A}$) and diacritic accents ($\vec{r}, \dot{x}, \ddot{y}, \hat{\theta}, \bar{z}, \tilde{f}$):
+\begin{equation}
+\vec{r} = \mathbf{x} + \mathbf{y}, \quad \ddot{x} + 2\kappa \cdot \dot{x} + \omega_{0}^{2} \cdot x = \hat{f}(t)
+\end{equation}
+
+\end{document}
