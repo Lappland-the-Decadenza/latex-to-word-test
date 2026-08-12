@@ -90,3 +90,24 @@ def test_math_delimiter_inside_text_color_renders_as_omml(tmp_path):
     math = paragraph._p.find(".//" + qn("m:oMath"))
     assert math is not None
     assert math.find(".//" + qn("w:color")).get(qn("w:val")) == "0000FF"
+
+
+def test_math_colour_reaches_control_glyphs():
+    document = docx.Document()
+    paragraph = document.add_paragraph()
+    warnings = []
+    add_inline_math_latex(
+        paragraph,
+        r"\textcolor[HTML]{7030A0}{\(\int\left(\frac{d x}{\sqrt{y}}\right)\)}",
+        warnings=warnings,
+    )
+    assert warnings == []
+
+    math = paragraph._p.find(".//" + qn("m:oMath"))
+    controls = math.findall(".//" + qn("m:ctrlPr"))
+    assert len(controls) >= 4
+    for control in controls:
+        rpr = control.find(qn("w:rPr"))
+        assert rpr is not None
+        assert rpr.find(qn("w:color")).get(qn("w:val")) == "7030A0"
+        assert rpr.find(qn("w:rFonts")).get(qn("w:ascii")) == "Cambria Math"

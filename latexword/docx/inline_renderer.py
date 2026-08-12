@@ -260,7 +260,23 @@ class InlineRenderer:
                 "color", "highlight", "shading")):
             return
 
+        def ensure_math_font(word_rpr):
+            """Give Word's non-visible math glyphs an explicit math font.
+
+            Word-generated OMML repeats the math font on both visible runs
+            and ``m:ctrlPr``.  Without it, Word can keep control glyphs (for
+            example fraction bars and delimiters) on the paragraph's regular
+            font and ignore their otherwise valid colour override.
+            """
+            if word_rpr.find(qn("w:rFonts")) is not None:
+                return
+            fonts = OxmlElement("w:rFonts")
+            for attribute in ("ascii", "eastAsia", "hAnsi", "cs"):
+                fonts.set(qn("w:" + attribute), "Cambria Math")
+            word_rpr.insert(0, fonts)
+
         def apply_word_properties(word_rpr):
+            ensure_math_font(word_rpr)
             if self.styles.get("color"):
                 color = OxmlElement("w:color")
                 color.set(qn("w:val"), self.styles["color"])
@@ -298,8 +314,10 @@ class InlineRenderer:
         # these properties, each visible math run gets an isolated rectangle
         # instead of one continuous highlighted range.
         control_parents = {
-            "accPr", "dPr", "fPr", "funcPr", "mPr", "naryPr", "radPr",
-            "sSubPr", "sSubSupPr", "sSupPr",
+            "accPr", "barPr", "borderBoxPr", "boxPr", "dPr", "eqArrPr",
+            "fPr", "funcPr", "groupChrPr", "limLowPr", "limUppPr", "mPr",
+            "naryPr", "phantPr", "radPr", "sPrePr", "sSubPr", "sSubSupPr",
+            "sSupPr",
         }
         structure_properties = {
             "acc": "accPr", "bar": "barPr", "borderBox": "borderBoxPr",
