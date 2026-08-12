@@ -1,3 +1,2 @@
 python-docx
 lxml
-latex2mathml

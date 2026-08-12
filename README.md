@@ -48,8 +48,8 @@ Word to start.
 The production requirements contain only libraries used by the current
 converter and workspace paths. `Pillow`, `pytest`, and `ruff` are development
 dependencies listed separately in `requirements-dev.txt`.
-`latex2mathml` remains a production requirement because the active DOCX
-writer imports its compatibility fallback at module load.
+The old MathML/XSL compatibility oracle is optional and is not required by the
+production converter or by normal Word editing.
 
 ## Quick start
 

@@ -60,7 +60,7 @@ $skillText = $skillText.Replace("__LATEXWORD_ROOT__", $installRoot)
 $utf8 = [System.Text.UTF8Encoding]::new($false)
 [IO.File]::WriteAllText($installedSkill, $skillText, $utf8)
 
-& $venvPython -c "import docx, lxml, latex2mathml"
+& $venvPython -c "import docx, lxml"
 if ($LASTEXITCODE -ne 0) {
     throw "Runtime dependency verification failed."
 }

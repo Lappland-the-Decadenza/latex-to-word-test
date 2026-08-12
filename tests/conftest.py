@@ -45,6 +45,25 @@ MAX_GENERATION = 5
 # exercise the most constructs, and size is a name-free, stable selector.
 DOCX_CONVERGENCE_SAMPLE = 6
 
+# Pytest's default `%TEMP%\pytest-of-<user>` can be left with a sandbox
+# security owner after an interrupted agent run.  Pytest scans that parent
+# before creating `tmp_path`, so one stale protected child can make the whole
+# suite fail.  Use a fresh user-owned directory outside the repository and
+# remove it after the session instead of touching any pre-existing temp tree.
+_SESSION_BASETEMP = None
+
+
+def pytest_configure(config):
+    global _SESSION_BASETEMP
+    if config.option.basetemp is None:
+        _SESSION_BASETEMP = tempfile.mkdtemp(prefix="latexword-pytest-")
+        config.option.basetemp = _SESSION_BASETEMP
+
+
+def pytest_sessionfinish(session, exitstatus):
+    if _SESSION_BASETEMP:
+        shutil.rmtree(_SESSION_BASETEMP, ignore_errors=True)
+
 
 def _descriptors(paths, kind, prefix):
     """Label corpus files positionally. Never by filename -- corpus documents

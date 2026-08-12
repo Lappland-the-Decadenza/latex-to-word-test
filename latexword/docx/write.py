@@ -1,13 +1,8 @@
 """Convert a LaTeX document into a .docx with native, editable Word equations.
 
-Pipeline:  LaTeX -> MathML (latex2mathml) -> normalised MathML -> OMML
-(MML2OMML.XSL) -> post-processed OMML -> python-docx.
-
-The two conversion stages that carry real risk are delegated to mature
-components: ``latex2mathml`` owns the LaTeX math grammar, and Microsoft's own
-stylesheet owns the MathML-to-OMML mapping.  What this module adds is the
-adaptation between them (see ``mathml_normalize``), a small OMML repair pass,
-and a document-level reader for the surrounding prose.
+Production pipeline: LaTeX -> AST -> OMML -> python-docx.  The optional old
+MathML/XSL pipeline is kept only for development-time rendering comparisons;
+it is never imported by the production path.
 
 Usage:  python latex2word.py input.tex [output.docx] [--reference-doc template.docx]
          [--reference-mode rewrite|copy]
@@ -31,9 +26,6 @@ from docx.oxml.ns import qn
 from docx.shared import Cm, Emu, Pt, RGBColor
 from lxml import etree
 
-import latex2mathml.converter
-
-from legacy.mathml_normalize import normalize
 from ..math import latex2omml
 from ..math.errors import MathError
 from ..document.text import href_unescape as _href_unescape
@@ -129,9 +121,15 @@ def legacy_latex_math_to_omml(tex, display="inline"):
     if not tex:
         raise MathError("empty math")
     try:
-        mathml = latex2mathml.converter.convert(tex, display=display)
+        # This oracle is intentionally optional.  The active converter is the
+        # direct AST -> OMML path below and must work without the private
+        # legacy tree or its MathML dependency.
+        import latex2mathml.converter as legacy_converter
+        from legacy.mathml_normalize import normalize as legacy_normalize
+
+        mathml = legacy_converter.convert(tex, display=display)
         root = etree.fromstring(mathml.encode("utf-8"))
-        normalize(root, display)
+        legacy_normalize(root, display)
         omml = _get_transform()(root).getroot()
     except MathError:
         raise
